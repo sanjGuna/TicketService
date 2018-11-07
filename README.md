@@ -76,5 +76,8 @@ Now if you run the Option A get availabe seats on same days as above 01/01/2019.
 
 
     
-    
+### Testing, Code Coverage and static code analisis results.
+As you can see in the following screen all test are passed and no sonarlint issues. Also i have a high code coverage and there were no tests added for UI classes as they only used to demostrate the work.
+![Analysis](https://github.com/sanjGuna/TicketService/blob/master/Analysis.png)
+
     

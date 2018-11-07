@@ -38,7 +38,7 @@ This is a simple java console-based application that uses Gradle and Java 8.
     ./gradlew test
     ```
    
-5. 10.	You will find TicketService-1.0-SNAPSHOT.jar inside build/libs folder and let’s execute that. 
+5. You will find TicketService-1.0-SNAPSHOT.jar inside build/libs folder and please execute following comand in a windows command prompt or mac terminal as this application uses console as a UI.
    ```
    cd build/libs
    Java -jar TicketService-1.0-SNAPSHOT.jar

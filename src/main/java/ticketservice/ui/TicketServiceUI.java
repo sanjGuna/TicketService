@@ -82,7 +82,7 @@ public class TicketServiceUI {
         console.printf("C. Confirm Booking\n");
         console.printf("D. Exit\n");
 
-        String option = console.readLine();
+        String option = console.readLine("Option : ");
 
         switch (option.toUpperCase()) {
             case "A":
@@ -129,13 +129,13 @@ public class TicketServiceUI {
 
     private static void holdSeats(Console console) {
         TicketService ticketService = new TicketService();
-        console.printf("please enter userId");
+        console.printf("please enter userId : ");
         String userId = console.readLine();
         console.printf("please enter date(dd/MM/yyyy): ");
         String date = console.readLine();
         try {
             Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-            console.printf("please enter comma separated seat ids ");
+            console.printf("please enter comma separated seat ids: ");
             String seats = console.readLine();
             List<Long> seatsIds = new ArrayList<>();
             for (String s : seats.split("\\s*,\\s*")) {
@@ -143,7 +143,7 @@ public class TicketServiceUI {
             }
             int reservationId = ticketService.holdSeat(date1, seatsIds, userId);
             console.printf(" Your reservation was successful. Reservation number is : " + reservationId);
-            console.printf(" Use this reservation id to confirm reservation ");
+            console.printf(" Use this reservation id to confirm reservation.");
             printOptions(console);
         } catch (InvalidDateException | InvalidUserException | InvalidSeatsException e) {
             console.printf(e.getMessage());

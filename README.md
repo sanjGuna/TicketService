@@ -58,6 +58,12 @@ Option A:
 
 You will be promted to enter the date  that you would like to get availability.
 ![Availability](https://github.com/sanjGuna/TicketService/blob/master/Availability.png)
+
+Now you can hold seats ids based on your prefernce.
+You will need to enter userid. (Tyr testuser), date(01/01/2019), comma seperated seatd ids. One it is on hold you will get a confirmation number.
+
+![optionB](https://github.com/sanjGuna/TicketService/blob/master/optionB.png)
+
     
     
     

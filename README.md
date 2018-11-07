@@ -64,6 +64,11 @@ You will need to enter userid. (Tyr testuser), date(01/01/2019), comma seperated
 
 ![optionB](https://github.com/sanjGuna/TicketService/blob/master/optionB.png)
 
+Now you will have the conformation number(Above screen gave 1), use OPTION C and use conformation numnber to confirm your seat.
+
+![optionC](https://github.com/sanjGuna/TicketService/blob/master/optionC.png)
+
+
     
     
     

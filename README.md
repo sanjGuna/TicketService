@@ -16,7 +16,7 @@ This is a simple java console based application that uses Gradle and Java 8.
 8. User will be prasented all avaiable seating with there star rating. Then use will select the seats they want by entering seat numbers.
 9. Only one show perday and seat can be available for other days if it is reserved for one day.
 
-### Running the Console Application
+### Executing the Console Application
 ---
 1. Please make sure you have git intalled and JAVA_HOME setup
 2. Clone TicketService Application
@@ -46,5 +46,18 @@ This is a simple java console based application that uses Gradle and Java 8.
  ![consoleApp](https://github.com/sanjGuna/TicketService/blob/master/ConsoleApplication.png)
  
  
-      
+### Using Application
+   
+Select Following options . 
+A. Find Available Seats
+B. Hold seat for a client
+C. Confirm Booking
+D. Exit
+
+Option A:
+
+You will be promted to enter the date  that you would like to get availability.
+![Availability](https://github.com/sanjGuna/TicketService/blob/master/Availability.png)
+    
+    
     

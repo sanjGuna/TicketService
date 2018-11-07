@@ -94,7 +94,7 @@ public class TicketServiceTest {
     @Test
     public void testSeatHoldWithBadUserName() {
         try {
-            ticketService.holdSeat(new Date(), new ArrayList<>(), "admin123");
+            ticketService.holdSeat(getDaysInDays(1), new ArrayList<>(), "admin123");
         } catch (InvalidUserException e) {
             Assert.assertEquals("Invalid User Id", e.getMessage());
         } catch (InvalidSeatsException | InvalidDateException e) {

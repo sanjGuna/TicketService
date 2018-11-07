@@ -11,6 +11,8 @@ import java.util.Map;
 import ticketservice.dao.SeatDao;
 import ticketservice.entity.Seat;
 import ticketservice.exception.InvalidDateException;
+import ticketservice.exception.InvalidSeatsException;
+import ticketservice.exception.InvalidUserException;
 import ticketservice.service.TicketService;
 
 /**
@@ -24,6 +26,8 @@ public class TicketServiceUI {
 
     public static void createConsoleUI() {
         Console console = System.console();
+        console.readLine("\nWelcome to Ticket Service.");
+        console.readLine("\nYou may use testuser1 fro demo purpose when needed");
         printInitialSeatAvailability(console);
         printOptions(console);
         console.readLine("\nThank you for using Ticket Service.");
@@ -118,7 +122,7 @@ public class TicketServiceUI {
             console.printf(" Your reservation was successful. Reservation number is : " + reservationId);
             console.printf(" Use this reservation id to confirm reservation ");
             printOptions(console);
-        } catch (InvalidDateException e) {
+        } catch (InvalidDateException | InvalidUserException | InvalidSeatsException e) {
             console.printf(e.getMessage());
             console.printf("\n");
         } catch (ParseException e) {

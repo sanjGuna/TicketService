@@ -1,9 +1,9 @@
 package ticketservice.exception;
 
-public class InvalidUserException extends Exception {
+public class InvalidSeatsException extends Exception {
     private final String errorMessage;
 
-    public InvalidUserException(String message) {
+    public InvalidSeatsException(String message) {
         this.errorMessage = message;
     }
 

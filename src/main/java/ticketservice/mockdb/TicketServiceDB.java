@@ -124,4 +124,15 @@ public class TicketServiceDB {
         currentReservationGroupSequenceId = 0;
 
     }
+
+    public static boolean IsSeatAvailable(List<Long> seatIds, Date date) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        List<Reservation> reservations = new ArrayList<>();
+        for (Reservation value : RESERVATION_TABLE.values()) {
+            if (fmt.format(value.getReservationDate()).equals(fmt.format(date)) && seatIds.contains(value.getSeatId())) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

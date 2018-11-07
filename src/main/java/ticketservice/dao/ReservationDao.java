@@ -29,4 +29,8 @@ public class ReservationDao {
         TicketServiceDB.confirmReservation(groupId);
 
     }
+
+    public boolean IsSeatAvailable(List<Long> seatIds, Date date) {
+        return TicketServiceDB.IsSeatAvailable(seatIds, date);
+    }
 }

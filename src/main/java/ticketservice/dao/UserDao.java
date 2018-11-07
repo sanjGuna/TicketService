@@ -1,11 +1,10 @@
 package ticketservice.dao;
 
-public class UserDao {
-    String userId;
-    String name;
+import ticketservice.entity.User;
+import ticketservice.mockdb.TicketServiceDB;
 
-    public UserDao(String userId, String name) {
-        this.userId = userId;
-        this.name = name;
+public class UserDao {
+    public User find(String userId){
+        return TicketServiceDB.getUser(userId);
     }
 }

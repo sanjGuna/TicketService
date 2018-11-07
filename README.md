@@ -68,6 +68,10 @@ Now you will have the conformation number(Above screen gave 1), use OPTION C and
 
 ![optionC](https://github.com/sanjGuna/TicketService/blob/master/optionC.png)
 
+Now if you run the Option A get availabe seats on same days as above 01/01/2019. You will see selected seat numbers from row one is not available.
+
+![optionA](https://github.com/sanjGuna/TicketService/blob/master/OptionA.png)
+
 
     
     

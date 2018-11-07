@@ -33,4 +33,6 @@ This is a simple java console based application that uses Gradle and Java 8.
    Java -jar TicketService-1.0-SNAPSHOT.jar
    
  5.You will be prasented with following Screen.
+ ![consoleApp](https://github.com/sanjGuna/TicketService/ConsoleApplication.png)
+      
     

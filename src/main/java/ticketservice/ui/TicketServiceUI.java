@@ -10,6 +10,7 @@ import java.util.Map;
 
 import ticketservice.dao.SeatDao;
 import ticketservice.entity.Seat;
+import ticketservice.exception.InvalidConfermationException;
 import ticketservice.exception.InvalidDateException;
 import ticketservice.exception.InvalidSeatsException;
 import ticketservice.exception.InvalidUserException;
@@ -137,10 +138,13 @@ public class TicketServiceUI {
         TicketService ticketService = new TicketService();
         console.printf("please enter reservation number: ");
         String groupId = console.readLine();
-        ticketService.confirmReservation(Integer.parseInt(groupId));
+        try {
+            ticketService.confirmReservation(Integer.parseInt(groupId));
+        } catch (InvalidConfermationException e) {
+            console.printf(e.getMessage());
+            console.printf("\n");
+        }
         console.printf("Your Reservation is Confirmed\n");
         printOptions(console);
-
     }
-
 }

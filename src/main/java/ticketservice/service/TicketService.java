@@ -12,6 +12,7 @@ import ticketservice.dao.UserDao;
 import ticketservice.entity.Reservation;
 import ticketservice.entity.Seat;
 import ticketservice.entity.User;
+import ticketservice.exception.InvalidConfermationException;
 import ticketservice.exception.InvalidDateException;
 import ticketservice.exception.InvalidSeatsException;
 import ticketservice.exception.InvalidUserException;
@@ -45,7 +46,7 @@ public class TicketService {
     }
 
     private void validateSeatAvailability(List<Long> seatIds, Date date) throws InvalidSeatsException {
-        boolean isSeatAvailable = new ReservationDao().IsSeatAvailable(seatIds, date);
+        boolean isSeatAvailable = new ReservationDao().isSeatAvailable(seatIds, date);
         if (!isSeatAvailable) {
             throw new InvalidSeatsException("Some or all seat ids are not available");
         }
@@ -75,7 +76,11 @@ public class TicketService {
         return reservations;
     }
 
-    public void confirmReservation(int groupId) {
-        new ReservationDao().confirmReservation(groupId);
+    public boolean confirmReservation(int groupId) throws InvalidConfermationException {
+        boolean success  = new ReservationDao().confirmReservation(groupId);
+        if(!success){
+            throw new InvalidConfermationException("Conformation number is not valid");
+        }
+        return success;
     }
 }

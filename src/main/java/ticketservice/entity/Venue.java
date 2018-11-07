@@ -2,24 +2,12 @@ package ticketservice.entity;
 
 import java.util.Date;
 
-public class PerformenceVenue {
+public class Venue {
     private Long  venueId;
     private String name;
     private String address;
     private Date dateCreated;
     private Long createdBy;
-
-
-    public PerformenceVenue() {
-    }
-
-    public PerformenceVenue(Long venueId, String name, String address, Date dateCreated, Long createdBy) {
-        this.venueId = venueId;
-        this.name = name;
-        this.address = address;
-        this.dateCreated = dateCreated;
-        this.createdBy = createdBy;
-    }
 
     public Long getVenueId() {
         return venueId;

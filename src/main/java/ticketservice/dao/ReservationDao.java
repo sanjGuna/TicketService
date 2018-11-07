@@ -25,12 +25,12 @@ public class ReservationDao {
         TicketServiceDB.expireReservations();
     }
 
-    public void confirmReservation(int groupId) {
-        TicketServiceDB.confirmReservation(groupId);
+    public boolean confirmReservation(int groupId) {
+        return TicketServiceDB.confirmReservation(groupId);
 
     }
 
-    public boolean IsSeatAvailable(List<Long> seatIds, Date date) {
-        return TicketServiceDB.IsSeatAvailable(seatIds, date);
+    public boolean isSeatAvailable(List<Long> seatIds, Date date) {
+        return TicketServiceDB.isSeatAvailable(seatIds, date);
     }
 }

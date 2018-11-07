@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ticketservice.entity.PerformenceVenue;
+import ticketservice.entity.Venue;
 import ticketservice.entity.Reservation;
 import ticketservice.entity.Seat;
 import ticketservice.entity.User;
@@ -18,7 +18,7 @@ import ticketservice.entity.User;
  */
 
 public class TicketServiceDB {
-    private static final Map<Long, PerformenceVenue> PERFORMANCE_VENUE_TABLE = new HashMap<>();
+    private static final Map<Long, Venue> PERFORMANCE_VENUE_TABLE = new HashMap<>();
     private static final Map<Long, Seat> SEAT_TABLE = new HashMap<>();
     private static final Map<Long, Reservation> RESERVATION_TABLE = new HashMap<>();
     private static final Map<String, User> USER = new HashMap<>();
@@ -31,13 +31,13 @@ public class TicketServiceDB {
     private TicketServiceDB() {
     }
 
-    public static Long save(PerformenceVenue performenceVenue) {
-        PERFORMANCE_VENUE_TABLE.put(++currentVenueSequenceId, performenceVenue);
-        performenceVenue.setVenueId(currentVenueSequenceId);
+    public static Long save(Venue venue) {
+        PERFORMANCE_VENUE_TABLE.put(++currentVenueSequenceId, venue);
+        venue.setVenueId(currentVenueSequenceId);
         return currentVenueSequenceId;
     }
 
-    public static PerformenceVenue getVenue(Long venueId) {
+    public static Venue getVenue(Long venueId) {
         return PERFORMANCE_VENUE_TABLE.get(venueId);
     }
 
@@ -106,18 +106,22 @@ public class TicketServiceDB {
         }
     }
 
-    public static void confirmReservation(int groupId) {
+    public static boolean confirmReservation(int groupId) {
+        boolean success = false;
         for (Reservation value : RESERVATION_TABLE.values()) {
             if (value.getReservationGroupId() == groupId) {
                 value.setStatus(Reservation.ReservationStatus.CONFIRMED);
+                success = true;
             }
         }
+        return success;
     }
 
     public static void flushDB() {
         RESERVATION_TABLE.clear();
         PERFORMANCE_VENUE_TABLE.clear();
         SEAT_TABLE.clear();
+        USER.clear();
         currentVenueSequenceId = 0L;
         currentSeatSequenceId = 0L;
         currentReservationSequenceId = 0L;
@@ -125,9 +129,8 @@ public class TicketServiceDB {
 
     }
 
-    public static boolean IsSeatAvailable(List<Long> seatIds, Date date) {
+    public static boolean isSeatAvailable(List<Long> seatIds, Date date) {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-        List<Reservation> reservations = new ArrayList<>();
         for (Reservation value : RESERVATION_TABLE.values()) {
             if (fmt.format(value.getReservationDate()).equals(fmt.format(date)) && seatIds.contains(value.getSeatId())) {
                 return false;

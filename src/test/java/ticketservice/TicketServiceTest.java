@@ -1,6 +1,7 @@
 package ticketservice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -10,13 +11,18 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ticketservice.dao.PerformancesVenueDao;
+import ticketservice.dao.VenueDao;
 import ticketservice.dao.ReservationDao;
 import ticketservice.dao.SeatDao;
-import ticketservice.entity.PerformenceVenue;
+import ticketservice.dao.UserDao;
+import ticketservice.entity.Venue;
 import ticketservice.entity.Reservation;
 import ticketservice.entity.Seat;
+import ticketservice.entity.User;
+import ticketservice.exception.InvalidConfermationException;
 import ticketservice.exception.InvalidDateException;
+import ticketservice.exception.InvalidSeatsException;
+import ticketservice.exception.InvalidUserException;
 import ticketservice.mockdb.TicketServiceDB;
 import ticketservice.service.TicketService;
 
@@ -30,9 +36,11 @@ public class TicketServiceTest {
     public void setUp() {
         TicketServiceDB.flushDB();
         SeatDao seatDao = new SeatDao();
-        PerformancesVenueDao performancesVenueDao = new PerformancesVenueDao();
+        UserDao userDao = new UserDao();
+        userDao.save(new User("admin", "Admin User"));
+        VenueDao venueDao = new VenueDao();
         reservationDao = new ReservationDao();
-        PerformenceVenue venue = performancesVenueDao.createDefaultVenue("ABC Venue");
+        Venue venue = venueDao.createDefaultVenue("ABC Venue");
         seatDao.createDefaultSeats(venue, 2, 3);
         ticketService = new TicketService();
 
@@ -45,13 +53,13 @@ public class TicketServiceTest {
         reservations.add(expiredReservation);
         reservationDao.saveReservation(reservations);
 
-        Map<Long, Seat> availableSeats = null;
+        Map<Long, Seat> availableSeats;
         try {
             availableSeats = ticketService.findAvailableSeats(new Date());
+            Assert.assertEquals(6, availableSeats.keySet().size());
         } catch (Exception e) {
             Assert.fail();
         }
-        Assert.assertEquals(6, availableSeats.keySet().size());
     }
 
     @Test
@@ -61,26 +69,123 @@ public class TicketServiceTest {
         reservations.add(activeReservation);
         reservationDao.saveReservation(reservations);
 
-        Map<Long, Seat> availableSeats = null;
+        Map<Long, Seat> availableSeats;
         try {
             availableSeats = ticketService.findAvailableSeats(new Date());
+            Assert.assertEquals(5, availableSeats.keySet().size());
         } catch (Exception e) {
             Assert.fail();
         }
-        Assert.assertEquals(5, availableSeats.keySet().size());
     }
 
 
     @Test
+    public void testSeatHoldWithBadDate() {
+        try {
+            ticketService.holdSeat(getDaysInDays(-7), new ArrayList<>(), "admin");
+        } catch (InvalidDateException e) {
+            Assert.assertEquals("Invalid Date. You can only see availability for Future dates", e.getMessage());
+        } catch (InvalidSeatsException | InvalidUserException e) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void testSeatHoldWithBadUserName() {
+        try {
+            ticketService.holdSeat(new Date(), new ArrayList<>(), "admin123");
+        } catch (InvalidUserException e) {
+            Assert.assertEquals("Invalid User Id", e.getMessage());
+        } catch (InvalidSeatsException | InvalidDateException e) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void testSeatHoldWithInvalidSeats() {
+        try {
+            ticketService.holdSeat(new Date(), new ArrayList<>(), "admin");
+        } catch (InvalidSeatsException e) {
+            Assert.assertEquals("Invalid seat ids", e.getMessage());
+        } catch (InvalidUserException | InvalidDateException e) {
+            Assert.fail();
+        }
+    }
+
+
+    @Test
+    public void testSeatHoldWithUnAvailableSeats() {
+        List<Reservation> reservations = new ArrayList<>();
+        Reservation activeReservation = createReservation(0, 1, 2L);
+        reservations.add(activeReservation);
+        reservationDao.saveReservation(reservations);
+        try {
+            ticketService.holdSeat(new Date(), Arrays.asList(1L, 2L), "admin");
+        } catch (InvalidSeatsException e) {
+            Assert.assertEquals("Some or all seat ids are not available", e.getMessage());
+        } catch (InvalidUserException | InvalidDateException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testSeatHoldWithAvailableSeats() {
+        List<Reservation> reservations = new ArrayList<>();
+        Reservation activeReservation = createReservation(0, 1, 2L);
+        reservations.add(activeReservation);
+        reservationDao.saveReservation(reservations);
+        try {
+            Integer confirmationId = ticketService.holdSeat(getDaysInDays(1), Arrays.asList(1L, 2L), "admin");
+            Assert.assertEquals(2, (int) confirmationId);
+        } catch (InvalidSeatsException e) {
+            Assert.assertEquals("Some or all seat ids are not available", e.getMessage());
+        } catch (InvalidUserException | InvalidDateException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void testConfirmSeats() {
+        List<Reservation> reservations = new ArrayList<>();
+        Reservation activeReservation = createReservation(0, 1, 2L);
+        reservations.add(activeReservation);
+        reservationDao.saveReservation(reservations);
+        try {
+            boolean success = ticketService.confirmReservation(1);
+            Assert.assertTrue(success);
+        }  catch (InvalidConfermationException e) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void testConfirmSeatsWithInvalidIdFailds() {
+        List<Reservation> reservations = new ArrayList<>();
+        Reservation activeReservation = createReservation(0, 1, 2L);
+        reservations.add(activeReservation);
+        reservationDao.saveReservation(reservations);
+        try {
+            ticketService.confirmReservation(3);
+        }  catch (InvalidConfermationException e) {
+            Assert.assertEquals("Conformation number is not valid", e.getMessage());
+        }
+    }
+
+    @Test
     public void testExpireReservationsException() {
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_MONTH, -7);
-        Date sevenDaysAgo = cal.getTime();
+        Date sevenDaysAgo = getDaysInDays(-7);
         try {
             ticketService.findAvailableSeats(sevenDaysAgo);
         } catch (InvalidDateException e) {
             Assert.assertEquals("Invalid Date. You can only see availability for Future dates", e.getMessage());
         }
+    }
+
+    private Date getDaysInDays(int daysAgo) {
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DAY_OF_MONTH, daysAgo);
+        return cal.getTime();
     }
 
     private Reservation createReservation(int delay, int groupId, Long seatId) {

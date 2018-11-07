@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ticketservice.entity.PerformenceVenue;
+import ticketservice.entity.Venue;
 import ticketservice.entity.Reservation;
 import ticketservice.entity.Seat;
 import ticketservice.mockdb.TicketServiceDB;
@@ -17,7 +17,7 @@ import org.junit.Test;
 
 public class ReservationDaoTest {
     private  SeatDao seatDao;
-    private  PerformancesVenueDao performancesVenueDao;
+    private VenueDao venueDao;
     private  ReservationDao reservationDao;
     private  Map<Long, Seat> seatMap;
 
@@ -25,9 +25,9 @@ public class ReservationDaoTest {
     public  void setUp() {
         TicketServiceDB.flushDB();
         seatDao = new SeatDao();
-        performancesVenueDao = new PerformancesVenueDao();
+        venueDao = new VenueDao();
         reservationDao = new ReservationDao();
-        PerformenceVenue venue = performancesVenueDao.createDefaultVenue("ABC Venue");
+        Venue venue = venueDao.createDefaultVenue("ABC Venue");
         seatDao.createDefaultSeats(venue, 2, 3);
         seatMap = TicketServiceDB.getSeatsTable();
 

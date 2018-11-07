@@ -13,7 +13,7 @@ import ticketservice.dao.SeatDao;
 import ticketservice.dao.VenueDao;
 import ticketservice.entity.Seat;
 import ticketservice.entity.Venue;
-import ticketservice.exception.InvalidConfermationException;
+import ticketservice.exception.InvalidConformationException;
 import ticketservice.exception.InvalidDateException;
 import ticketservice.exception.InvalidSeatsException;
 import ticketservice.exception.InvalidUserException;
@@ -30,8 +30,8 @@ public class TicketServiceUI {
 
     public static void createConsoleUI() {
         Console console = System.console();
-//        console.printf("\nWelcome to Ticket Service.");
-//        console.printf("\nYou may use testuser fro demo purpose when needed\n");
+        console.printf("\nWelcome to Ticket Service.");
+        console.printf("\nYou may use testuser for demo purpose when needed.\n");
         printVenues(console);
         printInitialSeatAvailability(console);
         printOptions(console);
@@ -56,19 +56,20 @@ public class TicketServiceUI {
     private static void printSeats(Console console, Map<Long, Seat> seatMap) {
         console.printf("Available Seats. \n");
         int currentRow = 0;
-        Long currentVenue=0L;
-        for (Long seatId : seatMap.keySet()) {
-            if (!seatMap.get(seatId).getVenueId().equals(currentVenue)) {
-                currentVenue = seatMap.get(seatId).getVenueId();
+        Long currentVenue = 0L;
+        for (Map.Entry<Long, Seat> seatId : seatMap.entrySet()) {
+            Seat value = seatId.getValue();
+            if (!value.getVenueId().equals(currentVenue)) {
+                currentVenue = value.getVenueId();
                 console.printf("\nVenue Id : ").printf(currentVenue.toString()).printf("\n");
             }
-            if (seatMap.get(seatId).getRowNumber() != currentRow) {
-                currentRow = seatMap.get(seatId).getRowNumber();
+            if (value.getRowNumber() != currentRow) {
+                currentRow = value.getRowNumber();
                 console.printf("\n");
-                console.printf("Row " + currentRow + " : " + seatId + "(" + seatMap.get(seatId).getRating() + ("*) "));
+                console.printf("Row " + currentRow + " : " + value.getSeatId() + "(" + value.getRating() + ("*) "));
 
             } else {
-                console.printf(seatId + "(" + seatMap.get(seatId).getRating() + ("*) "));
+                console.printf(value.getSeatId() + "(" + value.getRating() + ("*) "));
             }
         }
         console.printf("\n");
@@ -161,7 +162,7 @@ public class TicketServiceUI {
         String groupId = console.readLine();
         try {
             ticketService.confirmReservation(Integer.parseInt(groupId));
-        } catch (InvalidConfermationException e) {
+        } catch (InvalidConformationException e) {
             console.printf(e.getMessage());
             console.printf("\n");
         }

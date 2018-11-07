@@ -1,9 +1,9 @@
 package ticketservice.exception;
 
-public class InvalidConfermationException extends Exception {
+public class InvalidConformationException extends Exception {
     private final String errorMessage;
 
-    public InvalidConfermationException(String message) {
+    public InvalidConformationException(String message) {
         this.errorMessage = message;
     }
 

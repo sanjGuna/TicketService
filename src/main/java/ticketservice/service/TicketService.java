@@ -14,11 +14,14 @@ import ticketservice.entity.Reservation;
 import ticketservice.entity.Seat;
 import ticketservice.entity.User;
 import ticketservice.entity.Venue;
-import ticketservice.exception.InvalidConfermationException;
+import ticketservice.exception.InvalidConformationException;
 import ticketservice.exception.InvalidDateException;
 import ticketservice.exception.InvalidSeatsException;
 import ticketservice.exception.InvalidUserException;
 
+/**
+ * This will have all the service calls processing related to Ticket service demo application.
+ */
 public class TicketService {
     private static final Integer DEFAULT_ROWS = 10;
     private static final Integer DEFAULT_COLUMNS = 10;
@@ -38,6 +41,14 @@ public class TicketService {
         userDao.save(new User("testuser", "Test User"));
     }
 
+    /**
+     * Find available seating regardless of venue.
+     * THis will first expire any expired seat and then return the available seats
+     *
+     * @param date rested date
+     * @return available seats
+     * @throws InvalidDateException if date is invalid
+     */
     public Map<Long, Seat> findAvailableSeats(Date date) throws InvalidDateException {
         validateDate(date);
         Map<Long, Seat> allSeats = new SeatDao().findAllSeats();
@@ -50,6 +61,17 @@ public class TicketService {
         return allSeats;
     }
 
+    /**
+     * Onece a user decide on the number of seats needs system will save them with Hold status
+     *
+     * @param date    requested date
+     * @param seatIds list of seat ids to be hold
+     * @param userId  customer id
+     * @return confermation number
+     * @throws InvalidDateException  if date is invalid
+     * @throws InvalidSeatsException if seat is not available or invalid
+     * @throws InvalidUserException  id client does  not exists in the system
+     */
     public Integer holdSeat(Date date, List<Long> seatIds, String userId) throws InvalidDateException,
             InvalidSeatsException, InvalidUserException {
         validateDate(date);
@@ -59,10 +81,17 @@ public class TicketService {
         return new ReservationDao().saveReservation(reservations);
     }
 
-    public boolean confirmReservation(int groupId) throws InvalidConfermationException {
+    /**
+     * Confirm a reservation in hold status
+     *
+     * @param groupId conformation id
+     * @return conformation status
+     * @throws InvalidConformationException if conformation id is invalid
+     */
+    public boolean confirmReservation(int groupId) throws InvalidConformationException {
         boolean success = new ReservationDao().confirmReservation(groupId);
         if (!success) {
-            throw new InvalidConfermationException("Conformation number is not valid");
+            throw new InvalidConformationException("Conformation number is not valid");
         }
         return success;
     }

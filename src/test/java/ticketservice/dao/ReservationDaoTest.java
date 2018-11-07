@@ -5,31 +5,25 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ticketservice.entity.Reservation;
-import ticketservice.entity.Seat;
 import ticketservice.entity.Venue;
 import ticketservice.mockdb.TicketServiceDB;
 
 public class ReservationDaoTest {
-    private SeatDao seatDao;
-    private VenueDao venueDao;
     private ReservationDao reservationDao;
-    private Map<Long, Seat> seatMap;
 
     @Before
     public void setUp() {
         TicketServiceDB.flushDB();
-        seatDao = new SeatDao();
-        venueDao = new VenueDao();
+        SeatDao seatDao = new SeatDao();
+        VenueDao venueDao = new VenueDao();
         reservationDao = new ReservationDao();
         Venue venue = venueDao.createDefaultVenue("ABC Venue", "1 Main St", new Date());
         seatDao.createDefaultSeats(venue, 2, 3);
-        seatMap = TicketServiceDB.getSeatsTable();
 
     }
 

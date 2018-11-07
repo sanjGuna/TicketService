@@ -12,14 +12,13 @@ import org.junit.Test;
 
 public class SeatDaoTest {
     private static SeatDao seatDao;
-    private static VenueDao venueDao;
     private static Map<Long, Seat> seatMap;
 
     @BeforeClass
     public static void setUp() {
         TicketServiceDB.flushDB();
         seatDao = new SeatDao();
-        venueDao = new VenueDao();
+        VenueDao venueDao = new VenueDao();
         Venue venue = venueDao.createDefaultVenue("ABC Venue", "1 Main St", new Date());
         seatDao.createDefaultSeats(venue, 2, 3);
         seatMap = TicketServiceDB.getSeatsTable();

@@ -1,23 +1,25 @@
 package ticketservice.dao;
 
-import ticketservice.entity.Venue;
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import ticketservice.entity.Venue;
 import ticketservice.mockdb.TicketServiceDB;
 
 public class VenueDaoTest {
     private VenueDao venueDao;
 
     @Before
-    public  void setUp() {
+    public void setUp() {
         TicketServiceDB.flushDB();
         venueDao = new VenueDao();
     }
 
     @Test
     public void testCreateDefaultVenue() {
-        Venue venue = venueDao.createDefaultVenue("ABC Venue");
+        Venue venue = venueDao.createDefaultVenue( "ABC Venue", "1 Main St",new Date());
         Assert.assertEquals("ABC Venue", venue.getName());
     }
 

@@ -40,7 +40,7 @@ public class TicketServiceTest {
         userDao.save(new User("admin", "Admin User"));
         VenueDao venueDao = new VenueDao();
         reservationDao = new ReservationDao();
-        Venue venue = venueDao.createDefaultVenue("ABC Venue");
+        Venue venue = venueDao.createDefaultVenue("WalMart Arena", "ABC Venue", new Date());
         seatDao.createDefaultSeats(venue, 2, 3);
         ticketService = new TicketService();
 
@@ -104,7 +104,7 @@ public class TicketServiceTest {
     @Test
     public void testSeatHoldWithInvalidSeats() {
         try {
-            ticketService.holdSeat(new Date(), new ArrayList<>(), "admin");
+            ticketService.holdSeat(getDaysInDays(1), new ArrayList<>(), "admin");
         } catch (InvalidSeatsException e) {
             Assert.assertEquals("Invalid seat ids", e.getMessage());
         } catch (InvalidUserException | InvalidDateException e) {

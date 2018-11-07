@@ -2,6 +2,7 @@ package ticketservice.mockdb;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,9 @@ public class TicketServiceDB {
 
     public static Venue getVenue(Long venueId) {
         return PERFORMANCE_VENUE_TABLE.get(venueId);
+    }
+    public static Collection<Venue> getAllVenues() {
+        return PERFORMANCE_VENUE_TABLE.values();
     }
 
     public static String save(User user){

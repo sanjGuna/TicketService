@@ -7,7 +7,6 @@ public class Venue {
     private String name;
     private String address;
     private Date dateCreated;
-    private Long createdBy;
 
     public Long getVenueId() {
         return venueId;
@@ -41,11 +40,4 @@ public class Venue {
         this.dateCreated = dateCreated;
     }
 
-    public Long getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
-    }
 }

@@ -8,18 +8,6 @@ public class Seat {
     private Long venueId;
     private int rating;
 
-    public Seat() {
-    }
-
-    public Seat(Long seatId, Integer rowNumber, Integer seatLocationNumber, Float price, Long venueId, int rating) {
-        this.seatId = seatId;
-        this.rowNumber = rowNumber;
-        this.seatLocationNumber = seatLocationNumber;
-        this.price = price;
-        this.venueId = venueId;
-        this.rating = rating;
-    }
-
     public Long getSeatId() {
         return seatId;
     }

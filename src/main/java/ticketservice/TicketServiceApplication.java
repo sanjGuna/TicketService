@@ -1,8 +1,6 @@
 package ticketservice;
 
-import ticketservice.dao.VenueDao;
-import ticketservice.dao.SeatDao;
-import ticketservice.entity.Venue;
+import ticketservice.service.TicketService;
 import ticketservice.ui.TicketServiceUI;
 
 /**
@@ -19,20 +17,10 @@ import ticketservice.ui.TicketServiceUI;
  */
 
 public class TicketServiceApplication {
-    private static final Integer DEFAULT_ROWS = 10;
-    private static final Integer DEFAULT_COLUMNS = 10;
-
 
     public static void main(String[] args) {
-        initialize();
+        TicketService.initialize();
         TicketServiceUI.createConsoleUI();
     }
 
-    private static void initialize() {
-        VenueDao performanceVenueBL = new VenueDao();
-        SeatDao seatBL = new SeatDao();
-
-        Venue venue = performanceVenueBL.createDefaultVenue("WalMart Arena");
-        seatBL.createDefaultSeats(venue, DEFAULT_ROWS, DEFAULT_COLUMNS);
-    }
 }

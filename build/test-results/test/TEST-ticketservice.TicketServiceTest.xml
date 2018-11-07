@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ticketservice.TicketServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2018-11-07T02:51:00" hostname="sanjeewathilake.lan" time="0.019">
+<testsuite name="ticketservice.TicketServiceTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2018-11-07T05:36:44" hostname="sanjeewathilake.lan" time="0.046">
   <properties/>
-  <testcase name="testExpireReservationsActiveWillNotReturnAsAvailable" classname="ticketservice.TicketServiceTest" time="0.018"/>
+  <testcase name="testSeatHoldWithBadUserName" classname="ticketservice.TicketServiceTest" time="0.005"/>
+  <testcase name="testSeatHoldWithBadDate" classname="ticketservice.TicketServiceTest" time="0.026"/>
+  <testcase name="testConfirmSeatsWithInvalidIdFailds" classname="ticketservice.TicketServiceTest" time="0.001"/>
+  <testcase name="testSeatHoldWithUnAvailableSeats" classname="ticketservice.TicketServiceTest" time="0.009"/>
+  <testcase name="testConfirmSeats" classname="ticketservice.TicketServiceTest" time="0.0"/>
+  <testcase name="testSeatHoldWithInvalidSeats" classname="ticketservice.TicketServiceTest" time="0.0"/>
+  <testcase name="testSeatHoldWithAvailableSeats" classname="ticketservice.TicketServiceTest" time="0.001"/>
+  <testcase name="testExpireReservationsActiveWillNotReturnAsAvailable" classname="ticketservice.TicketServiceTest" time="0.001"/>
   <testcase name="testExpireReservationsRemoved" classname="ticketservice.TicketServiceTest" time="0.0"/>
-  <testcase name="testExpireReservationsException" classname="ticketservice.TicketServiceTest" time="0.0"/>
+  <testcase name="testExpireReservationsException" classname="ticketservice.TicketServiceTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

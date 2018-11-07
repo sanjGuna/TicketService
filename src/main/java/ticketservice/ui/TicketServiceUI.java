@@ -4,12 +4,15 @@ import java.io.Console;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import ticketservice.dao.SeatDao;
+import ticketservice.dao.VenueDao;
 import ticketservice.entity.Seat;
+import ticketservice.entity.Venue;
 import ticketservice.exception.InvalidConfermationException;
 import ticketservice.exception.InvalidDateException;
 import ticketservice.exception.InvalidSeatsException;
@@ -27,11 +30,22 @@ public class TicketServiceUI {
 
     public static void createConsoleUI() {
         Console console = System.console();
-        console.readLine("\nWelcome to Ticket Service.");
-        console.readLine("\nYou may use testuser1 fro demo purpose when needed");
+        console.printf("\nWelcome to Ticket Service.");
+        console.printf("\nYou may use testuser fro demo purpose when needed\n");
+        printVenues(console);
         printInitialSeatAvailability(console);
         printOptions(console);
         console.readLine("\nThank you for using Ticket Service.");
+    }
+
+    private static void printVenues(Console console) {
+        Collection<Venue> allVenues = new VenueDao().findAllVenues();
+        console.printf("Available Venues.\n");
+        for (Venue allVenue : allVenues) {
+            console.printf(allVenue.getVenueId().toString()).printf(".").printf(allVenue.getName());
+            console.printf("\n");
+        }
+        console.printf("\n");
     }
 
     private static void printInitialSeatAvailability(Console console) {
@@ -40,17 +54,24 @@ public class TicketServiceUI {
     }
 
     private static void printSeats(Console console, Map<Long, Seat> seatMap) {
-        int currRow = 0;
-        for (Long aLong : seatMap.keySet()) {
-            if (seatMap.get(aLong).getRowNumber() != currRow) {
-                currRow = seatMap.get(aLong).getRowNumber();
+        console.printf("Available Seats. \n");
+        int currentRow = 0;
+        Long currentVenue=0L;
+        for (Long seatId : seatMap.keySet()) {
+            if (!seatMap.get(seatId).getVenueId().equals(currentVenue)) {
+                currentVenue = seatMap.get(seatId).getVenueId();
+                console.printf("\nVenue Id : ").printf(currentVenue.toString()).printf("\n");
+            }
+            if (seatMap.get(seatId).getRowNumber() != currentRow) {
+                currentRow = seatMap.get(seatId).getRowNumber();
                 console.printf("\n");
-                console.printf("Row " + currRow + " : " + aLong + "(" + seatMap.get(aLong).getRating() + ("*) "));
+                console.printf("Row " + currentRow + " : " + seatId + "(" + seatMap.get(seatId).getRating() + ("*) "));
 
             } else {
-                console.printf(aLong + "(" + seatMap.get(aLong).getRating() + ("*) "));
+                console.printf(seatId + "(" + seatMap.get(seatId).getRating() + ("*) "));
             }
         }
+        console.printf("\n");
     }
 
     private static void printOptions(Console console) {

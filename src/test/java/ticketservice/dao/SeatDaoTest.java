@@ -1,5 +1,6 @@
 package ticketservice.dao;
 
+import java.util.Date;
 import java.util.Map;
 
 import ticketservice.entity.Venue;
@@ -19,7 +20,7 @@ public class SeatDaoTest {
         TicketServiceDB.flushDB();
         seatDao = new SeatDao();
         venueDao = new VenueDao();
-        Venue venue = venueDao.createDefaultVenue("ABC Venue");
+        Venue venue = venueDao.createDefaultVenue("ABC Venue", "1 Main St", new Date());
         seatDao.createDefaultSeats(venue, 2, 3);
         seatMap = TicketServiceDB.getSeatsTable();
 

@@ -30,8 +30,8 @@ public class TicketServiceUI {
 
     public static void createConsoleUI() {
         Console console = System.console();
-        console.printf("\nWelcome to Ticket Service.");
-        console.printf("\nYou may use testuser fro demo purpose when needed\n");
+//        console.printf("\nWelcome to Ticket Service.");
+//        console.printf("\nYou may use testuser fro demo purpose when needed\n");
         printVenues(console);
         printInitialSeatAvailability(console);
         printOptions(console);

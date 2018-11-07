@@ -1,30 +1,32 @@
 # Ticket Service
 ---
-This project is an implemenation of a simple ticket service that facilitates the discovery, temporary hold, and final reservation of seat within a highp-demand performence venue.
+This project is an implementation of a simple ticket service that facilitates the discovery, temporary hold, and final reservation of seat within a high-demand performance venue.
 
-This is a simple java console based application that uses Gradle and Java 8.
+This is a simple java console-based application that uses Gradle and Java 8.
+
 
 ### Assumptions
 ---
 1. There can be more than one venue available in a complex.
-2. Find avaialable slot will give all the seats that are not hold or confirmed.
-3. System have basic data loaded for veenue and seating data. 
-4. A row can have variable number of seates and a venue complex has a unique number for each seat.
+2. Find available slot will give all the seats that are not hold or confirmed.
+3. System have basic data loaded for venue and seating data.
+4. A row can have variable number of seats and a venue complex has a unique number for each seat.
 5. Users are not allowed to see historical availability.
 6. A user must be a valid user in the system.
-7. Expiaration will not happen untill someone actually look for avaiabkle seats.If a user does not confirm with set number of secs it will expire.
-8. User will be prasented all avaiable seating with there star rating. Then use will select the seats they want by entering seat numbers.
-9. Only one show perday and seat can be available for other days if it is reserved for one day.
+7. Expiration will not happen until someone actually look for available seats. If a user does not confirm with set number of secs it will expire.
+8. User will be presented all available seating with their star rating. Then use will select the seats they want by entering seat numbers.
+9. Only one show per day and seat can be available for other days if it is reserved for one day.
+
 
 ### Executing the Console Application
 ---
-1. Please make sure you have git intalled and JAVA_HOME setup
+1. Please make sure you have git installed and JAVA_HOME setup
 2. Clone TicketService Application
     ```
     git clone https://github.com/sanjGuna/TicketService.git
     ```
 
-3. Run the following command to get the Jar build locally using a git bash 
+3. Run the following command to get the Jar build locally using a git bash or similar
    ```
    cd TicketService
    
@@ -36,9 +38,9 @@ This is a simple java console based application that uses Gradle and Java 8.
     ./gradlew test
     ```
    
-5. You will find TicketService-1.0-SNAPSHOT.jar inside build/libslibs folder and lets execute that.
-   cd build/libslibs
+5. 10.	You will find TicketService-1.0-SNAPSHOT.jar inside build/libs folder and let’s execute that. 
    ```
+   cd build/libs
    Java -jar TicketService-1.0-SNAPSHOT.jar
    ```
    
@@ -58,26 +60,25 @@ D. Exit
 
 ####Select Option A:
 
-You will be promted to enter the date  that you would like to get availability.
+You will be prompted to enter the date that you would like to get availability. 
 ![Availability](https://github.com/sanjGuna/TicketService/blob/master/Availability.png)
 
-Now you can hold seats based on your prefernce.
-You will need to enter userid. (Try testuser), date(01/01/2019), comma seperated seatd ids. Onece it is on hold you will get a confirmation number.
+Now you can hold seats based on your preference. You will need to enter userid. (Try testuser), date(01/01/2019), comma separated seat ids. Once it is on hold you will get a confirmation number.
 
 ![optionB](https://github.com/sanjGuna/TicketService/blob/master/optionB.png)
 
-Now you will have the conformation number(Above screen gave 1), use OPTION C and use conformation numnber to confirm your seat.
+Now you will have the conformation number (Above screen gave 1), use OPTION C and use conformation number to confirm your seat.
 
 ![optionC](https://github.com/sanjGuna/TicketService/blob/master/optionC.png)
 
-Now if you run the Option A get availabe seats on same days as above 01/01/2019. You will see selected seat numbers from row one is not available.(onliy 6,9 10 available)
+Now if you run the Option A get available seats on same days as above 01/01/2019. You will see selected seat numbers from row one is not available. (only 6,9 10 available)
 
 ![optionA](https://github.com/sanjGuna/TicketService/blob/master/OptionA.png)
 
 
     
-### Testing, Code Coverage and static code analisis results.
-As you can see in the following screen all test are passed and no sonarlint issues. Also i have a high code coverage and there were no tests added for UI classes as they only used to demostrate the work.
+### Testing, Code Coverage and static code analysis results.
+AAs you can see in the following screen all test is passed and no sonar lint issues. Also, I have a high code coverage and there were no tests added for UI classes as they only used to demonstrate the work. 
 ![Analysis](https://github.com/sanjGuna/TicketService/blob/master/Analysis.png)
 
     

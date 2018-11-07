@@ -20,18 +20,27 @@ This is a simple java console based application that uses Gradle and Java 8.
 ---
 1. Please make sure you have git intalled and JAVA_HOME setup
 2. Clone TicketService Application
+    ```
     git clone https://github.com/sanjGuna/TicketService.git
+    ```
 
 3. Run the following command to get the Jar build locally using a git bash 
+   ```
    cd TicketService
    
    ./gradlew build
+   ```
    
-4. Testing ./gradlew test
+4. Testing 
+   ```
+    ./gradlew test
+    ```
    
 5. You will find TicketService-1.0-SNAPSHOT.jar inside build/libslibs folder and lets execute that.
    cd build/libslibs
+   ```
    Java -jar TicketService-1.0-SNAPSHOT.jar
+   ```
    
  5.You will be prasented with following Screen.
  ![consoleApp](https://github.com/sanjGuna/TicketService/blob/master/ConsoleApplication.png)

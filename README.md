@@ -48,19 +48,21 @@ This is a simple java console based application that uses Gradle and Java 8.
  
 ### Using Application
    
-Select Following options . 
+Select Following options.
+```
 A. Find Available Seats
 B. Hold seat for a client
 C. Confirm Booking
 D. Exit
+```
 
-Option A:
+####Select Option A:
 
 You will be promted to enter the date  that you would like to get availability.
 ![Availability](https://github.com/sanjGuna/TicketService/blob/master/Availability.png)
 
-Now you can hold seats ids based on your prefernce.
-You will need to enter userid. (Tyr testuser), date(01/01/2019), comma seperated seatd ids. One it is on hold you will get a confirmation number.
+Now you can hold seats based on your prefernce.
+You will need to enter userid. (Try testuser), date(01/01/2019), comma seperated seatd ids. Onece it is on hold you will get a confirmation number.
 
 ![optionB](https://github.com/sanjGuna/TicketService/blob/master/optionB.png)
 
@@ -68,7 +70,7 @@ Now you will have the conformation number(Above screen gave 1), use OPTION C and
 
 ![optionC](https://github.com/sanjGuna/TicketService/blob/master/optionC.png)
 
-Now if you run the Option A get availabe seats on same days as above 01/01/2019. You will see selected seat numbers from row one is not available.
+Now if you run the Option A get availabe seats on same days as above 01/01/2019. You will see selected seat numbers from row one is not available.(onliy 6,9 10 available)
 
 ![optionA](https://github.com/sanjGuna/TicketService/blob/master/OptionA.png)
 
